@@ -71,32 +71,43 @@ public class MainActivity extends AppCompatActivity {
      */
     public void submitOrder(View view) {
 
-//        // Read out the user's name
-//        EditText nameEditText=(EditText) findViewById(R.id.name_edit_text);
-//        String name=nameEditText.getText().toString();
-//
-//        // Figure out if the user wants whipped cream topping
-//        CheckBox whippedCreamCheckBox = (CheckBox) findViewById(R.id.whipped_cream_checkbox);
-//        boolean hasWhippedCream = whippedCreamCheckBox.isChecked();
-//
-//        // Figure out if the user wants chocolate topping
-//        CheckBox chocolateCheckBox = (CheckBox) findViewById(R.id.chocolate_checkbox);
-//        boolean hasChocolate = chocolateCheckBox.isChecked();
-//
-//        // Calculate the price
-//        int price = calculatePrice(hasWhippedCream, hasChocolate);
-//
-//        // Display the order summary on the screen
-//        String message = createOrderSummary(name, price, hasWhippedCream, hasChocolate);
+        // Read out the user's name
+        EditText nameEditText=(EditText) findViewById(R.id.name_edit_text);
+        String name=nameEditText.getText().toString();
+
+        // Figure out if the user wants whipped cream topping
+        CheckBox whippedCreamCheckBox = (CheckBox) findViewById(R.id.whipped_cream_checkbox);
+        boolean hasWhippedCream = whippedCreamCheckBox.isChecked();
+
+        // Figure out if the user wants chocolate topping
+        CheckBox chocolateCheckBox = (CheckBox) findViewById(R.id.chocolate_checkbox);
+        boolean hasChocolate = chocolateCheckBox.isChecked();
+
+        // Calculate the price
+        int price = calculatePrice(hasWhippedCream, hasChocolate);
+
+        // Display the order summary on the screen
+        String message = createOrderSummary(name, price, hasWhippedCream, hasChocolate);
 //        displayMessage(message);
 
 
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-        Uri geoLocation=Uri.parse("geo:47.6, -122.3");
-        intent.setData(geoLocation);
+//        Intent intent = new Intent(Intent.ACTION_VIEW);
+//        Uri geoLocation=Uri.parse("geo:47.6, -122.3");
+//        intent.setData(geoLocation);
+//        if (intent.resolveActivity(getPackageManager()) != null) {
+//            startActivity(intent);
+//        }
+
+
+//        intent.setType("*/*");
+        Intent intent = new Intent(Intent.ACTION_SENDTO);
+        intent.setData(Uri.parse("mailto:")); // only email apps should handle this
+        intent.putExtra(Intent.EXTRA_TEXT, message);
+        intent.putExtra(Intent.EXTRA_SUBJECT, "JustJava order for " + name);
         if (intent.resolveActivity(getPackageManager()) != null) {
             startActivity(intent);
-        }
+            }
+
     }
 
     /**
